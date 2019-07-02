@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+    }
+
+
+    .header {
+        padding: 80px;
+        text-align: center;
+        background: grey;
+        color: white;
+
+    }
+
+    .header h1 {
+        font-size: 40px;
+    }
+
+
+    .navbar {
+        overflow: hidden;
+        background-color: #333;
+        -webkit-box-shadow: 0 10px 6px -6px #777;
+        -moz-box-shadow: 0 10px 6px -6px #777;
+        box-shadow: 0 10px 6px -6px #777;
+        font-size:2.5vw;
+        font-max-size: 2pt;
+    }
+
+
+    .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+
+    .navbar a.right {
+        float: right;
+    }
+
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    .sticky + .mijn-pagina-main {
+        padding-top: 60px;
+    }
+    .beheerBar{
+        display: none;
+        visibility: hidden;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2}
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .form-container {
+        padding: 10px;
+        background-color: white;
+        align-content: center;
+    }
+
+
+    .form-container input[type=text], .form-container input[type=number], .form-container input[type=date], .form-container select {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        margin: 5px 0 22px 0;
+        background: #f1f1f1;
+    }
+
+
+    .form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=date]:focus, .form-container select {
+        background-color: #ddd;
+        outline: none;
+    }
+
+
+    .form-container .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom:10px;
+        opacity: 0.8;
+    }
+
+
+    .form-container .cancel {
+        background-color: red;
+    }
+
+
+    .form-container .btn:hover, .open-button:hover {
+        opacity: 1;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 40px;
+        border: 1px solid #888;
+        width: 25%;
+    }
+    @media screen and (max-width:800px){
+        .modal-content{
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+    }
+    .open-button {
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        bottom: 23px;
+        right: 28px;
+        width: 280px;
+    }
+</style>
+<div class="header">
+    <h1>Student Household System</h1>
+    <p></p>
+</div>
+
+<div class="navbar">
+    <a href="home.html">Home</a>
+    <a href="boodschappenlijst.html">Boodschappen</a>
+    <a href="#">Huistaken</a>
+    <a class="beheerBar" href="beheer.html">Beheer</a>
+    <a href="mijnpagina.html" class="right">Persoonlijke Pagina</a>
+</div>
+
+<div id="userList" style="overflow-x:auto">
+    <p class="headers"></p>
+    <table id="tabel" class="userList">
+        <tr style="text-align: left">
+            <th>Voornaam</th>
+            <th>Achternaam</th>
+            <th>Gebruikersnaam</th>
+            <th>E-mail</th>
+            <th>Leeftijd</th>
+            <th>Rol</th>
+            <th>Verwijder</th>
+            <th>Wijzig</th>
+
+        </tr>
+    </table>
+</div>
+
+<button class="open-button" id="myBtn">Gebruiker toevoegen</button>
+
+<div id="myModal2" class="modal">
+
+
+    <div class="modal-content">
+        <span class="close2">&times;</span>
+
+        <form id="userUpdaten" class="form-container">
+            <h1>Gebruiker Wijzigen</h1>
+
+            <label><b>Voornaam</b></label>
+            <input type="text" placeholder="Voer de voornaam in" name="voornaam" id="voornaam"  required/>
+
+            <label><b>Achternaam</b></label>
+            <input type="text" placeholder="Voer de achternaam in" name="achternaam" id="achternaam" required/>
+
+            <label><b>Gebruikersnaam</b></label>
+            <input type="text" placeholder="Voer de gebruikersnaam in"  name="gebruikersnaam" id="gebruikersnaam" required/>
+
+            <label><b>E-mail</b></label>
+            <input type="text" placeholder="Voer de E-mail in"  name="email" id="email" required/>
+
+            <label><b>Leeftijd</b></label>
+            <input type="text" placeholder="Voer de leeftijd in"  name="leeftijd" id="leeftijd" required/>
+
+            <label><b>Rol</b></label>
+            <select name="rol" id="rol">
+                <option value="beheerder">Beheerder</option>
+                <option value="gebruiker">Gebruiker</option>
+            </select>
+
+            <label><b>Wachtwoord</b></label>
+            <input type="text" placeholder="Voer het wachtwoord in"  name="wachtwoord" id="wachtwoord" required/>
+
+
+            <button type="button" id="opslaan2" value="Opslaan" class="btn">Opslaan</button>
+            <button type="button" id="cancel2" class="btn cancel" >Cancel</button>
+        </form>
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+
+
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <form id="userToevoegen" class="form-container">
+            <h1>Gebruiker Toevoegen</h1>
+
+            <label><b>Voornaam</b></label>
+            <input type="text" placeholder="Voer de voornaam in" name="voornaam" id="voornaam2"  required/>
+
+            <label><b>Achternaam</b></label>
+            <input type="text" placeholder="Voer de achternaam in" name="achternaam" id="achternaam2" required/>
+
+            <label><b>Gebruikersnaam</b></label>
+            <input type="text" placeholder="Voer de gebruikersnaam in"  name="gebruikersnaam" id="gebruikersnaam2" required/>
+
+            <label><b>E-mail</b></label>
+            <input type="text" placeholder="Voer de E-mail in"  name="email" id="email2" required/>
+
+            <label><b>Leeftijd</b></label>
+            <input type="text" placeholder="Voer de leeftijd in"  name="leeftijd" id="leeftijd2" required/>
+
+            <label><b>Rol</b></label>
+            <select name="rol" id="ro2l">
+                <option value="beheerder">Beheerder</option>
+                <option value="gebruiker">Gebruiker</option>
+            </select>
+
+            <label><b>Wachtwoord</b></label>
+            <input type="text" placeholder="Voer het wachtwoord in"  name="wachtwoord" id="wachtwoord2" required/>
+
+
+            <button type="button" id="opslaan" value="Opslaan" class="btn">Opslaan</button>
+            <button type="button" id="cancel" class="btn cancel" >Cancel</button>
+        </form>
+    </div>
+</div>
+<script>
+    function loadUsers() {
+        var fetchOptionsGebruikers = {method: 'GET', headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}};
+        fetch("restservices/user", fetchOptionsGebruikers)
+            .then(response => response.json())
+            .then(function (data) {
+            for (const user of data) {
+                console.log(user);
+                var row = document.createElement("tr");
+                row.setAttribute("id", user.gebruikerNummer);
+
+                var voornaamcolumn = document.createElement("td");
+                var voornaam = document.createTextNode(user.voornaam);
+                voornaamcolumn.appendChild(voornaam);
+                row.appendChild(voornaamcolumn);
+
+                var achternaamcolumn = document.createElement("td");
+                var achternaam = document.createTextNode(user.achternaam);
+                achternaamcolumn.appendChild(achternaam);
+                row.appendChild(achternaamcolumn);
+
+                var gebruikersnaamcolumn = document.createElement("td");
+                var gebruikersnaam = document.createTextNode(user.gebruikersNaam);
+                gebruikersnaamcolumn.style.whiteSpace = "nowrap";
+                gebruikersnaamcolumn.appendChild(gebruikersnaam);
+                row.appendChild(gebruikersnaamcolumn);
+
+                var emailcolumn = document.createElement("td");
+                var email = document.createTextNode(user.email);
+                emailcolumn.style.whiteSpace = "nowrap";
+                emailcolumn.appendChild(email);
+                row.appendChild(emailcolumn);
+
+                var leeftijdcolumn = document.createElement("td");
+                var leeftijd = document.createTextNode(user.leeftijd);
+                leeftijdcolumn.style.whiteSpace = "nowrap";
+                leeftijdcolumn.appendChild(leeftijd);
+                row.appendChild(leeftijdcolumn);
+
+                var rolcolumn = document.createElement("td");
+                var rol = document.createTextNode(user.rol);
+                rolcolumn.style.whiteSpace = "nowrap";
+                rolcolumn.appendChild(rol);
+                row.appendChild(rolcolumn);
+
+
+                var deleteCollumn = document.createElement("td");
+                var deleteElement = document.createElement("input");
+                deleteElement.setAttribute("type", "button");
+                deleteElement.setAttribute("id", user.gebruikerNummer);
+                deleteElement.setAttribute("value", "Verwijder");
+                deleteCollumn.appendChild(deleteElement);
+                row.appendChild(deleteCollumn);
+
+                deleteElement.addEventListener('click', function () {
+                    var fetchOptions = {
+                        method: 'DELETE',
+                        headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}
+                    };
+                    fetch("restservices/user/" + user.gebruikerNummer, fetchOptions)
+                        .then(function (response) {
+                            if (response.ok) {
+                                alert("Item verwijderd!");
+                                location.reload();
+                            } else {
+                                alert("Kon Item niet verwijderen: foutcode " + response.status);
+                            }
+
+                        })
+
+                });
+
+
+                var updateCollumn = document.createElement("td");
+                var updateElement = document.createElement("input");
+                updateElement.setAttribute("type", "button");
+                updateElement.setAttribute("id", user.gebruikerNummer);
+                updateElement.setAttribute("value", "Wijzig");
+                updateCollumn.appendChild(updateElement);
+                row.appendChild(updateCollumn);
+
+                updateElement.addEventListener('click', function () {
+                    var modal2 = document.getElementById("myModal2");
+                    modal2.style.display = "block";
+                    document.getElementById("voornaam").value = user.voornaam;
+                    document.getElementById("achternaam").value = user.achternaam;
+                    document.getElementById("gebruikersnaam").value = user.gebruikersNaam;
+                    document.getElementById("email").value = user.email;
+                    document.getElementById("leeftijd").value = user.leeftijd;
+                    document.getElementById("rol").value = user.rol;
+
+
+
+                    document.querySelector("#opslaan2").addEventListener('click', function () {
+                        var formData = new FormData(document.querySelector("#userUpdaten"));
+                        for (var value of formData.values()) {
+                            console.log(value);
+                            if(value === null || value ===""){
+                                console.log("niet alle velden zijn ingevuld");
+                                alert("vul alle velden in!");
+                                return;
+                            }
+                        }
+                        var encData = new URLSearchParams(formData.entries());
+                        var fetchOptions = {method: "PUT", body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}};
+                        fetch('restservices/user/' + user.gebruikerNummer, fetchOptions)
+                            .then(function(response){
+                                if(response.ok){
+                                    alert("gebruiiker gewijzigd");
+                                    modal2.style.display = "none";
+                                    location.reload();
+                                }
+                                else{
+                                    alert("Kon gebruiker niet wijzigen");
+
+
+                                }
+                            });
+                    });
+                });
+
+
+                document.querySelector("#tabel").appendChild(row);
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tabel");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.getElementsByTagName("tr");
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("td")[0];
+                        y = rows[i + 1].getElementsByTagName("td")[0];
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+
+                }
+            }
+        });
+
+    }
+    function toevoegenGebruiker(){
+        console.log("toevoegen");
+        document.querySelector("#opslaan").addEventListener('click', function () {
+            var formData = new FormData(document.querySelector("#boodschappenOpslaan"));
+            for (var value of formData.values()) {
+                console.log(value);
+                if(value === null || value ===""){
+                    console.log("niet alle velden zijn ingevuld!");
+                    alert("vul alle velden in!");
+                    return;
+                }
+            }
+
+            var encData = new URLSearchParams(formData.entries());
+            console.log(window.sessionStorage.getItem("sessionToken"));
+            var fetchOptions = {method: "POST", body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}};
+            console.log(fetchOptions);
+            fetch("restservices/boodschappen/", fetchOptions)
+                .then(response => response)
+        .then(function (myJson) {
+                console.log(myJson);
+                sleep(1000);
+                location.reload();
+            })
+        });
+
+    }
+
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var btnCancel = document.getElementById("cancel");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    btnCancel.onclick = function() {
+        modal.style.display = "none";
+    }
+
+
+
+    var modal2 = document.getElementById("myModal2");
+    var btnCancel2 = document.getElementById("cancel2");
+    var span2 = document.getElementsByClassName("close2")[0];
+
+    span2.onclick = function() {
+        modal2.style.display = "none";
+    }
+    btnCancel2.onclick = function() {
+        modal2.style.display = "none";
+    }
+
+
+
+    loadUsers();
+
+
+
+</script>
+</body>
+</html>
