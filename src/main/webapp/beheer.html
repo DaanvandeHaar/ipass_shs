@@ -31,7 +31,7 @@
         -webkit-box-shadow: 0 10px 6px -6px #777;
         -moz-box-shadow: 0 10px 6px -6px #777;
         box-shadow: 0 10px 6px -6px #777;
-        font-size:2.5vw;
+        font-size:1.5vw;
         font-max-size: 2pt;
     }
 
@@ -169,7 +169,7 @@
     }
 </style>
 <div class="header">
-    <h1>Student Household System</h1>
+    <img src="images/SHS-logo-black%20(1).png"  style="width: 30%; height: auto">
     <p></p>
 </div>
 
@@ -430,7 +430,7 @@
     function toevoegenGebruiker(){
         console.log("toevoegen");
         document.querySelector("#opslaan").addEventListener('click', function () {
-            var formData = new FormData(document.querySelector("#boodschappenOpslaan"));
+            var formData = new FormData(document.querySelector("#userToevoegen"));
             for (var value of formData.values()) {
                 console.log(value);
                 if(value === null || value ===""){
@@ -444,12 +444,13 @@
             console.log(window.sessionStorage.getItem("sessionToken"));
             var fetchOptions = {method: "POST", body: encData, headers: {'Authorization': 'Bearer ' + window.sessionStorage.getItem("myJWT")}};
             console.log(fetchOptions);
-            fetch("restservices/boodschappen/", fetchOptions)
-                .then(response => response)
-        .then(function (myJson) {
+            fetch("restservices/user", fetchOptions)
+                .then(function (response) {
+                    if (response.ok){
+                        alert("gebruiker toegevoegd");
+
+                    }
                 console.log(myJson);
-                sleep(1000);
-                location.reload();
             })
         });
 
@@ -484,7 +485,7 @@
     }
 
 
-
+    toevoegenGebruiker();
     loadUsers();
 
 

@@ -59,7 +59,7 @@ public class UserPostgresDaoImpl extends PostgresBaseDao implements UserDao {
 	    	System.out.println("save");
 	    	boolean saved = false;
 	        try (Connection conn = super.getConnection()){
-	            String query = "INSERT INTO gebruiker(voornaam,achternaam,email,leeftijd,rol,gebruikersnaam,wachtwoord) VALUES(?, ?, ?, ?, ?, ? ,?)";
+	            String query = "INSERT INTO gebruiker(voornaam,achternaam,email,leeftijd,rol,gebruikersnaam,wachtwoord, wachtwoord_hash) VALUES(?, ?, ?, ?, ?, ? , ?, ?)";
 	            PreparedStatement statement = conn.prepareStatement(query);
 	            statement.setString(1, user.getVoornaam());
 	            statement.setString(2, user.getAchternaam());
@@ -68,6 +68,7 @@ public class UserPostgresDaoImpl extends PostgresBaseDao implements UserDao {
 	            statement.setString(5, user.getRol());
 	            statement.setString(6, user.getGebruikersnaam());
 	            statement.setString(7, user.getWachtwoord());
+	            statement.setString(8, user.getWachtwoordHash());
 	            saved = statement.executeUpdate() == 1;
 	            statement.close();
 	            return saved;

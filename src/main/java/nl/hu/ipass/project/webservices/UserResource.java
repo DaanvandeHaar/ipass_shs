@@ -39,7 +39,7 @@ public class UserResource {
 
 	@POST
 	@Produces("application/json")
-//	@RolesAllowed("beheerder")
+	@RolesAllowed("beheerder")
 	public Response addUser(
 			@FormParam("voornaam") String voornaam,
 			@FormParam("achternaam") String achternaam,
@@ -51,7 +51,7 @@ public class UserResource {
 		User user = ServiceProvider.getUserService().addUser(voornaam,achternaam,email,leeftijd,rol,gebruikersnaam,wachtwoord);
 		if (user == null) {
 			Map<String, String> messages = new HashMap<>();
-			messages.put("error", "Country does not exist!");
+			messages.put("error", " does not exist!");
 			System.out.println("Gebruiker: " + voornaam  + " niet toevoegen");
 			return Response.status(409).entity(messages).build();
 		}

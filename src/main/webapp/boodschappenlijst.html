@@ -31,7 +31,7 @@
         -webkit-box-shadow: 0 10px 6px -6px #777;
         -moz-box-shadow: 0 10px 6px -6px #777;
         box-shadow: 0 10px 6px -6px #777;
-        font-size:2.5vw;
+        font-size:1.5vw;
         font-max-size: 2pt;
     }
 
@@ -207,7 +207,7 @@
 <body>
 
 <div class="header">
-    <h1>Student Household System</h1>
+    <img src="images/SHS-logo-black%20(1).png"  style="width: 30%; height: auto">
     <p></p>
 </div>
 
@@ -291,6 +291,7 @@
             infoJson = data;
             console.log(infoJson);
             window.sessionStorage.setItem("mijnGebruikerNummer",JSON.stringify(infoJson.gebruikerNummer));
+            window.sessionStorage.setItem("mijnRol",JSON.stringify(infoJson.rol));
 
         });
     }
@@ -357,7 +358,7 @@
                 datumcolumn.appendChild(datum);
                 row.appendChild(datumcolumn);
 
-                if (boodschappen.gebruikerNummer == window.sessionStorage.getItem("mijnGebruikerNummer") ) {
+                if (boodschappen.gebruikerNummer == window.sessionStorage.getItem("mijnGebruikerNummer") || window.sessionStorage.getItem("mijnRol") == "beheerder") {
                     var deleteCollumn = document.createElement("td");
                     var deleteElement = document.createElement("input");
                     deleteElement.setAttribute("type", "button");
