@@ -170,6 +170,24 @@ public class BoodschappenLijstItemPostgresDaoImpl extends PostgresBaseDao implem
 			return false;
 		}
 
+		public int getActive(){
+			try(Connection conn = super.getConnection()) {
+				int number = 0;
+				String query = "SELECT boodschappenlijst_nummer FROM boodschappenlijst WHERE boodschappenlijst_nummer=(SELECT max(boodschappenlijst_nummer) FROM boodschappenlijst)";
+				PreparedStatement statement = conn.prepareStatement(query);
+				ResultSet result = statement.executeQuery();
+				while(result.next()){
+					number = result.getInt("boodschappenlijst_nummer");
+					return number;
+
+				}
+			}catch(SQLException se){
+					se.printStackTrace();
+				}
+				return 0;
+
+		}
+
 
 		
 //	    private boolean contains(BoodschappenLijstItem BoodschappenLijstItem){

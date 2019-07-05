@@ -65,6 +65,11 @@
             display: none;
             visibility: hidden;
         }
+        .uitlogbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
 
 
     </style>
@@ -94,6 +99,7 @@
     <p id="leeftijd"></p>
     <p id="gebruikersnaam"></p>
     <br/>
+    <button type="button" id="uitlogbtn" class="uitlogbtn">Uitloggen</button>
 </div>
 <script>
     function welkomTekst() {
@@ -122,6 +128,14 @@
     //             }
     //     });
     // }
+
+    document.querySelector("#uitlogbtn").addEventListener('click', function () {
+        sessionStorage.removeItem("myJWT");
+        window.location.replace("index.html");
+
+    });
+
+
     welkomTekst()
 
 

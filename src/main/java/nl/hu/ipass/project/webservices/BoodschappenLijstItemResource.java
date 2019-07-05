@@ -37,7 +37,7 @@ import nl.hu.ipass.project.model.BoodschappenLijstItemService;
 			String userName = sc.getUserPrincipal().getName();
 			User user = ServiceProvider.getUserService().getUserByUserName(userName);
 			int gebruikerNummer = user.getGebruikerNummer();
-			System.out.println(gebruikerNummer + boodschappenLijstItemNummer);
+			System.out.println(gebruikerNummer + boodschappenLijstItemNummer + "");
 			if (!ServiceProvider.getBoodschappenLijstItemService().deleteBoodschappenLijstItem(boodschappenLijstItemNummer, gebruikerNummer)) {
 				return Response.status(404).build();
 			}
@@ -46,7 +46,7 @@ import nl.hu.ipass.project.model.BoodschappenLijstItemService;
 
 		@POST
 		@Produces("application/json")
-//		@RolesAllowed("beheerder")
+		@RolesAllowed("beheerder")
 		public Response addBoodschappenLijstItem(
 //				@FormParam("boodschappenLijstNummer") int boodschappenLijstNummer,
 				@FormParam("beschrijving") String beschrijving,
