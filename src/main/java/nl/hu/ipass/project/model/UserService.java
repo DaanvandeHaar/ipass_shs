@@ -66,6 +66,10 @@ public class UserService {
 				u.setWachtwoord(wachtwoord);
 				u.setGebruikersnaam(gebruikersnaam);
 				u.setLeeftijd(leeftijd);
+				if (wachtwoord ==  null || wachtwoord == ""){
+					dao.update(u);
+					return u;
+				}
 				u.setWachtwoord(wachtwoord);
 				dao.update(u);
 				return u;
